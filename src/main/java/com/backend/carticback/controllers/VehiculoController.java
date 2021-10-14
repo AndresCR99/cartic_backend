@@ -13,42 +13,43 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.backend.carticback.models.TipoPersonaModel;
-import com.backend.carticback.services.TipoPersonaService;
+import com.backend.carticback.models.VehiculoModel;
+import com.backend.carticback.services.VehiculoService;
 
 @RestController
-@RequestMapping("/api/tipoPersonas")
-public class TipoPersonaController {
+@RequestMapping("/api/vehiculos")
+public class VehiculoController {
     @Autowired
-    TipoPersonaService tipoPersonaService;
+    VehiculoService usuarioService;
 
     @GetMapping()
-    public ArrayList<TipoPersonaModel> getUsers(){
-        return tipoPersonaService.getUsers();
+    public ArrayList<VehiculoModel> getUsers(){
+        return usuarioService.getUsers();
     }
 
     @PostMapping()
-    public TipoPersonaModel saveUser(@RequestBody TipoPersonaModel user){
-        return this.tipoPersonaService.saveUser(user);
+    public VehiculoModel saveUser(@RequestBody VehiculoModel user){
+        return this.usuarioService.saveUser(user);
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<TipoPersonaModel> getUserById(@PathVariable("id") Long id){
-        return this.tipoPersonaService.getById(id);
+    public Optional<VehiculoModel> getUserById(@PathVariable("id") Long id){
+        return this.usuarioService.getById(id);
     }
 
     @PutMapping()
-    public TipoPersonaModel updateUser(@RequestBody TipoPersonaModel user){
-        return this.tipoPersonaService.saveUser(user);
+    public VehiculoModel updateUser(@RequestBody VehiculoModel user){
+        return this.usuarioService.saveUser(user);
     }
 
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") Long id){
-        boolean ok = this.tipoPersonaService.deleteUser(id);
+        boolean ok = this.usuarioService.deleteUser(id);
         if(ok){
             return "User deleted with id: " + id;
         }else{
             return "could not delete user with id: " + id;
         }
     }
+
 }

@@ -3,7 +3,7 @@ import javax.persistence.*;
 // import java.util.List;
 
 @Entity
-@Table(name="persona")
+@Table(name="personas")
 public class PersonaModel {
     
     @Id
