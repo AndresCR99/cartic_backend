@@ -13,24 +13,23 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.backend.carticback.models.PersonaModel;
-import com.backend.carticback.services.PersonaService;
+import com.backend.carticback.models.OrdenModel;
+import com.backend.carticback.services.OrdenService;
 
 
 @RestController
-@RequestMapping("/api/personas")
-public class PersonaController {
-    
+@RequestMapping("/api/ordenes")
+public class OrdenController {
     @Autowired
-    PersonaService personaService;
+    OrdenService personaService;
 
     @GetMapping()
-    public ArrayList<PersonaModel> getUsers(){
+    public ArrayList<OrdenModel> getUsers(){
         return personaService.getUsers();
     }
 
     @PostMapping()
-    public PersonaModel saveUser(@RequestBody PersonaModel user){
+    public OrdenModel saveUser(@RequestBody OrdenModel user){
         // @RequestBody permite enviar parametros dentro de la solicitud
         //Guarda el usuario y lo retorna con su id
         // este metodo sirve para actualizar solo hayq ue pasarle el id y actualizar los otros campos
@@ -38,13 +37,13 @@ public class PersonaController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<PersonaModel> getUserById(@PathVariable("id") Long id){
+    public Optional<OrdenModel> getUserById(@PathVariable("id") Long id){
         // buscar por id http://localhost:8080/api/users/2
         return this.personaService.getById(id);
     }
 
     @PutMapping()
-    public PersonaModel updateUser(@RequestBody PersonaModel user){
+    public OrdenModel updateUser(@RequestBody OrdenModel user){
         return this.personaService.saveUser(user);
     }
 
@@ -57,7 +56,4 @@ public class PersonaController {
             return "could not delete user with id: " + id;
         }
     }
-
-
-
 }
