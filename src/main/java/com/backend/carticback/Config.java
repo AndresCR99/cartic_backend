@@ -18,6 +18,9 @@ public class Config {
         System.setProperty("spring.datasource.username", dbUsername);
         System.setProperty("spring.datasource.password", dbPassword);
         System.setProperty("spring.jpa.hibernate.ddl-auto", dbAutoUpdate);
+        System.setProperty("tokenSecret", "8ZUHp6chMb8SYrwcQmB20l9s0ij0S7eE");
+        System.setProperty("server.error.include-message", "always");
+        System.setProperty("spring.datasource.initialization-mode", "always");
     }
 
 }

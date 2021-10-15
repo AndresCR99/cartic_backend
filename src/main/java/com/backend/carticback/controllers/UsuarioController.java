@@ -2,6 +2,7 @@ package com.backend.carticback.controllers;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,43 +13,41 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.modelmapper.ModelMapper;
 
+import com.backend.carticback.entities.requests.UsuarioRegistrarRequestModel ;
+import com.backend.carticback.entities.responses.UsuarioRestModel;
 import com.backend.carticback.models.UsuarioModel;
-import com.backend.carticback.services.UsuarioService;
+import com.backend.carticback.services.IUsuarioService;
+import com.backend.carticback.shared.UsuarioCrearDto;
+import com.backend.carticback.shared.UsuarioDto;
 
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
-    @Autowired
-    UsuarioService usuarioService;
 
-    @GetMapping()
-    public ArrayList<UsuarioModel> getUsers(){
-        return usuarioService.getUsers();
-    }
+    
+    @Autowired
+    IUsuarioService iUsuarioServicio;
+    
+    
+    @Autowired
+    ModelMapper modelmapper;
+    
+    // // @PostMapping("/login")
+    // // public UsuarioModel login(@RequestBody UsuarioModel usuario){
+    // //     return usuario;
+    // // }
 
     @PostMapping()
-    public UsuarioModel saveUser(@RequestBody UsuarioModel user){
-        return this.usuarioService.saveUser(user);
-    }
+    public UsuarioRestModel crearUsuario(@RequestBody @Valid UsuarioRegistrarRequestModel usuarioRegistroRequestModel){
+       
+        UsuarioCrearDto usuarioCrearDto= modelmapper.map(usuarioRegistroRequestModel, UsuarioCrearDto.class);
+        
+        UsuarioDto usuarioDto= iUsuarioServicio.crearUsuario(usuarioCrearDto);
 
-    @GetMapping(path = "/{id}")
-    public Optional<UsuarioModel> getUserById(@PathVariable("id") Long id){
-        return this.usuarioService.getById(id);
-    }
+        UsuarioRestModel usuarioRestModel= modelmapper.map(usuarioDto, UsuarioRestModel.class);
 
-    @PutMapping()
-    public UsuarioModel updateUser(@RequestBody UsuarioModel user){
-        return this.usuarioService.saveUser(user);
-    }
-
-    @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable("id") Long id){
-        boolean ok = this.usuarioService.deleteUser(id);
-        if(ok){
-            return "User deleted with id: " + id;
-        }else{
-            return "could not delete user with id: " + id;
-        }
-    }
+        return usuarioRestModel;
+    } 
 }

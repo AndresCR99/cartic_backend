@@ -7,5 +7,5 @@ import com.backend.carticback.models.UsuarioModel;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long>{
-    
+
 }
