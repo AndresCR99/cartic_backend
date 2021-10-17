@@ -1,37 +1,85 @@
 package com.backend.carticback.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import java.util.Optional;
-import com.backend.carticback.repositories.UsuarioRepository;
+import java.util.List;
+import java.util.UUID;
+
 import com.backend.carticback.models.UsuarioModel;
+import com.backend.carticback.repositories.IUsuarioRepository;
+import com.backend.carticback.errors.UsuarioExisteException;
+import com.backend.carticback.shared.UsuarioCrearDto;
+import com.backend.carticback.shared.UsuarioDto;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements IUsuarioService{ 
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    ModelMapper modelmapper;
 
-    public ArrayList<UsuarioModel> getUsers(){
-        return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
-    }
+    @Autowired
+    IUsuarioRepository iUsuarioRepository; 
 
-    public UsuarioModel saveUser(UsuarioModel persona){
-        return usuarioRepository.save(persona);
-    }
+    @Autowired
+    BCryptPasswordEncoder bcryptPasswordEncoder;
 
-    public Optional<UsuarioModel> getById(long id){
-        //optional por si no existe el id no falle
-        return usuarioRepository.findById(id);
-    }
 
-    public boolean deleteUser(Long id){
-        try {
-            usuarioRepository.deleteById(id); // no regresa nada
-            return true;
-        } catch (Exception e) {
-            return false;
+
+    @Override
+    public UsuarioDto crearUsuario(UsuarioCrearDto usuarioCrearDto) {
+
+        if(iUsuarioRepository.findByCorreo(usuarioCrearDto.getCorreo()) != null){
+            throw new UsuarioExisteException("Este correo ya se encuentra registrado");
         }
+
+        if(iUsuarioRepository.findByUserName(usuarioCrearDto.getUserName()) != null){
+            throw new UsuarioExisteException("Este nombre de usuario ya esta en uso");
+        }
+         
+         
+        UsuarioModel usuarioEntityDto= modelmapper.map(usuarioCrearDto, UsuarioModel.class);
+        usuarioEntityDto.setEncryptedPassword(bcryptPasswordEncoder.encode(usuarioCrearDto.getPassword()));
+        usuarioEntityDto.setUserId(UUID.randomUUID().toString());
+
+        UsuarioModel usuarioEntitySave=iUsuarioRepository.save(usuarioEntityDto);
+        
+        UsuarioDto usuarioDto= modelmapper.map(usuarioEntitySave, UsuarioDto.class);
+      
+        return usuarioDto;
     }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        
+        UsuarioModel usuarioModel = iUsuarioRepository.findByUserName(userName);
+
+        if(usuarioModel==null) {
+            throw new UsernameNotFoundException(userName);
+        }
+        
+        return new User(usuarioModel.getUserName(), usuarioModel.getEncryptedPassword(), new ArrayList<>());
+    }
+
+    @Override
+    public UsuarioDto obtenerUsuario(String userName) {
+
+        UsuarioModel usuarioModel = iUsuarioRepository.findByUserName(userName);
+        
+        if(usuarioModel==null){
+            throw new UsernameNotFoundException(userName);
+        }
+
+        UsuarioDto usuarioDtoObtenido= modelmapper.map(usuarioModel, UsuarioDto.class);
+
+        return usuarioDtoObtenido;
+    }
+    
 }

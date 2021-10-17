@@ -1,22 +1,39 @@
 package com.backend.carticback.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name="usuarios")
-public class UsuarioModel {
+@Table(name="usuarios",
+indexes = {
+    @Index(columnList = "id", name="index_userid", unique = true),
+    @Index(columnList = "userName", name="index_username", unique = true), 
+    @Index(columnList = "correo", name="index_correo", unique = true) 
+})
+public class UsuarioModel implements Serializable {
 
+    private static final long serialVersionUID =1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique=true, nullable = false)
     private Long id;
 
-    private String correo;
-    private String contrasena;
+    @Column(unique=true)
+    private String userId;
 
-    // @OneToOne
-    // @JoinColumn(name ="fk_usuarios_persona", referencedColumnName = "id", unique = true)
-    // private PersonaModel persona;
+    @Column(nullable = false, length = 100)
+    private String nombre;
+    
+    @Column(nullable = false, length = 50)
+    private String correo;
+
+    @Column(nullable = false, length = 10)
+    private String userName;
+    
+    @Column(nullable = false)
+    private String encryptedPassword;
+
 
     public Long getId() {
         return id;
@@ -24,6 +41,29 @@ public class UsuarioModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getCorreo() {
@@ -34,22 +74,12 @@ public class UsuarioModel {
         this.correo = correo;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 
-    // public PersonaModel getPersona() {
-    //     return persona;
-    // }
-
-    // public void setPersona(PersonaModel persona) {
-    //     this.persona = persona;
-    // }
-
-
-    
 }
