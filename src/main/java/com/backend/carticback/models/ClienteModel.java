@@ -1,10 +1,9 @@
 package com.backend.carticback.models;
 import javax.persistence.*;
-// import java.util.List;
 
 @Entity
-@Table(name="personas")
-public class PersonaModel {
+@Table(name="clientes")
+public class ClienteModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +14,6 @@ public class PersonaModel {
     private String apellidos;
     private String telefono;
     private String direccion;
-
-    @ManyToOne
-    @JoinColumn(name ="fk_tipo_usuarios", referencedColumnName = "id")
-    private TipoPersonaModel tipoPersona;
 
     public Long getId() {
         return id;
@@ -59,15 +54,4 @@ public class PersonaModel {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
-    public TipoPersonaModel getTipoPersona() {
-        return tipoPersona;
-    }
-
-    public void setTipoPersona(TipoPersonaModel tipoPersona) {
-        this.tipoPersona = tipoPersona;
-    }
-
-
-
 }

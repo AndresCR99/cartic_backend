@@ -33,11 +33,6 @@ public class UsuarioController {
     
     @Autowired
     ModelMapper modelmapper;
-    
-    // // @PostMapping("/login")
-    // // public UsuarioModel login(@RequestBody UsuarioModel usuario){
-    // //     return usuario;
-    // // }
 
     @PostMapping()
     public UsuarioRestModel crearUsuario(@RequestBody @Valid UsuarioRegistrarRequestModel usuarioRegistroRequestModel){

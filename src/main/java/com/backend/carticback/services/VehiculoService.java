@@ -23,13 +23,12 @@ public class VehiculoService {
     }
 
     public Optional<VehiculoModel> getById(long id){
-        //optional por si no existe el id no falle
         return vehiculoRepository.findById(id);
     }
 
     public boolean deleteUser(Long id){
         try {
-            vehiculoRepository.deleteById(id); // no regresa nada
+            vehiculoRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             return false;

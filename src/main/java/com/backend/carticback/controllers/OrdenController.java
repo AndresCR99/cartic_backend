@@ -21,35 +21,31 @@ import com.backend.carticback.services.OrdenService;
 @RequestMapping("/api/ordenes")
 public class OrdenController {
     @Autowired
-    OrdenService personaService;
+    OrdenService clienteService;
 
     @GetMapping()
     public ArrayList<OrdenModel> getUsers(){
-        return personaService.getUsers();
+        return clienteService.getUsers();
     }
 
     @PostMapping()
     public OrdenModel saveUser(@RequestBody OrdenModel user){
-        // @RequestBody permite enviar parametros dentro de la solicitud
-        //Guarda el usuario y lo retorna con su id
-        // este metodo sirve para actualizar solo hayq ue pasarle el id y actualizar los otros campos
-        return this.personaService.saveUser(user);
+        return this.clienteService.saveUser(user);
     }
 
     @GetMapping(path = "/{id}")
     public Optional<OrdenModel> getUserById(@PathVariable("id") Long id){
-        // buscar por id http://localhost:8080/api/users/2
-        return this.personaService.getById(id);
+        return this.clienteService.getById(id);
     }
 
     @PutMapping()
     public OrdenModel updateUser(@RequestBody OrdenModel user){
-        return this.personaService.saveUser(user);
+        return this.clienteService.saveUser(user);
     }
 
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") Long id){
-        boolean ok = this.personaService.deleteUser(id);
+        boolean ok = this.clienteService.deleteUser(id);
         if(ok){
             return "User deleted with id: " + id;
         }else{

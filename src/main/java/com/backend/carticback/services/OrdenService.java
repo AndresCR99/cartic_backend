@@ -23,13 +23,12 @@ public class OrdenService {
 
     
     public Optional<OrdenModel> getById(long id){
-        //optional por si no existe el id no falle
         return ordenRepository.findById(id);
     }
 
     public boolean deleteUser(Long id){
         try {
-            ordenRepository.deleteById(id); // no regresa nada
+            ordenRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             return false;
