@@ -20,8 +20,6 @@ public class CarticBackApplication {
 	public static void main(String[] args) {
 		Config config = new Config();
 		config.dbProperties();
-
-		// System.out.println(UUID.randomUUID().toString());
 		SpringApplication.run(CarticBackApplication.class, args);
 		
 	}

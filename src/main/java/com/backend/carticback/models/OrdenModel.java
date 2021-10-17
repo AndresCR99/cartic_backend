@@ -24,8 +24,8 @@ public class OrdenModel {
     private VehiculoModel vehiculo;
 
     @ManyToOne
-    @JoinColumn(name ="fk_personas", referencedColumnName = "id")
-    private PersonaModel persona;
+    @JoinColumn(name ="fk_clientes", referencedColumnName = "id")
+    private ClienteModel clientes;
 
     @OneToMany
     @JoinColumn(name ="fk_orden", referencedColumnName = "id")
@@ -55,12 +55,12 @@ public class OrdenModel {
         this.vehiculo = vehiculo;
     }
 
-    public PersonaModel getPersona() {
-        return persona;
+    public ClienteModel getCliente() {
+        return clientes;
     }
 
-    public void setPersona(PersonaModel persona) {
-        this.persona = persona;
+    public void setCliente(ClienteModel clientes) {
+        this.clientes = clientes;
     }
 
     public List<ServicioModel> getServicios() {
