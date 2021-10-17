@@ -31,6 +31,10 @@ public class OrdenModel {
     @JoinColumn(name ="fk_orden", referencedColumnName = "id")
     private List<ServicioModel> servicios;
 
+    @ManyToOne
+    @JoinColumn(name ="fk_tecnicos", referencedColumnName = "id")
+    private TecnicoModel tecnicos;
+
     public Long getId() {
         return id;
     }
@@ -55,11 +59,11 @@ public class OrdenModel {
         this.vehiculo = vehiculo;
     }
 
-    public ClienteModel getCliente() {
+    public ClienteModel getClientes() {
         return clientes;
     }
 
-    public void setCliente(ClienteModel clientes) {
+    public void setClientes(ClienteModel clientes) {
         this.clientes = clientes;
     }
 
@@ -69,6 +73,14 @@ public class OrdenModel {
 
     public void setServicios(List<ServicioModel> servicios) {
         this.servicios = servicios;
+    }
+
+    public TecnicoModel getTecnicos() {
+        return tecnicos;
+    }
+
+    public void setTecnicos(TecnicoModel tecnicos) {
+        this.tecnicos = tecnicos;
     }
 
 
