@@ -7,8 +7,7 @@ public class Config {
     Dotenv dotenv = Dotenv.load();
     
     public void dbProperties(){
-        /* ...
-        */
+
         String dbUrl = dotenv.get("SPRING_DATASOURCE_LOCAL", "jdbc:mysql://127.0.0.1:3306/cartic?createDatabaseIfNotExist=true");
         String dbUsername = dotenv.get("SPRING_DB_USERNAME", "root");
         String dbPassword = dotenv.get("SPRING_DB_PASSWORD", "");

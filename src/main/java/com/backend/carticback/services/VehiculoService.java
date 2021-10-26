@@ -26,6 +26,10 @@ public class VehiculoService {
         return vehiculoRepository.findById(id);
     }
 
+    public ArrayList<VehiculoModel> getByPrioridad(String placa){
+        return vehiculoRepository.findByPlaca(placa);
+    }
+
     public boolean deleteUser(Long id){
         try {
             vehiculoRepository.deleteById(id);

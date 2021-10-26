@@ -2,8 +2,7 @@ package com.backend.carticback.entities.requests;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
 
 public class UsuarioLoginRequestModel {
 

@@ -21,31 +21,31 @@ import com.backend.carticback.services.OrdenService;
 @RequestMapping("/api/ordenes")
 public class OrdenController {
     @Autowired
-    OrdenService clienteService;
+    OrdenService ordenService;
 
     @GetMapping()
     public ArrayList<OrdenModel> getUsers(){
-        return clienteService.getUsers();
+        return ordenService.getUsers();
     }
 
     @PostMapping()
     public OrdenModel saveUser(@RequestBody OrdenModel user){
-        return this.clienteService.saveUser(user);
+        return this.ordenService.saveUser(user);
     }
 
     @GetMapping(path = "/{id}")
     public Optional<OrdenModel> getUserById(@PathVariable("id") Long id){
-        return this.clienteService.getById(id);
+        return this.ordenService.getById(id);
     }
 
     @PutMapping()
     public OrdenModel updateUser(@RequestBody OrdenModel user){
-        return this.clienteService.saveUser(user);
+        return this.ordenService.saveUser(user);
     }
 
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") Long id){
-        boolean ok = this.clienteService.deleteUser(id);
+        boolean ok = this.ordenService.deleteUser(id);
         if(ok){
             return "User deleted with id: " + id;
         }else{
