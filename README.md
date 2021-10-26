@@ -1,6 +1,58 @@
 # **PROYECTO CARTIC**
 
-### **DEPENDENCIAS**
+### **CRUD ORDENES DE SERVICIO**
+
+**Endpoints local**
+```
+http://localhost:8080/api/ordenes_servicios
+http://localhost:8080/api/ordenes_servicios/<id>
+```
+**HEADERS:**
+```
+{
+    Content-Type: application/json,
+    Authorization: Bearer eyJhbG...
+}
+
+```
+
+**MÉTODOS:** 
+```
+GET
+http://localhost:8080/api/ordenes_servicios
+http://localhost:8080/api/ordenes_servicios/<id>
+
+POST
+http://localhost:8080/api/ordenes_servicios
+
+{
+  "fecha": "2021-10-28",
+  "nombreServicio": "secado",
+  "descripcionServicio": "servicio de secado con alto costo",
+  "placaVehiculo": "HQX482",
+  "nombreCliente": "luis paternostro",
+  "nombreTecnico": "ellen calcio",
+  "valorServicio": 500000.0
+}
+
+PUT
+http://localhost:8080/api/ordenes_servicios
+
+{
+  "id": 2,
+  "fecha": "2021-10-28",
+  "nombreServicio": "secado",
+  "descripcionServicio": "servicio de secado con alto costo",
+  "placaVehiculo": "HQX482",
+  "nombreCliente": "luis paternostro",
+  "nombreTecnico": "ellen calcio",
+  "valorServicio": 500000.0
+}
+
+DELETE
+http://localhost:8080/api/ordenes_servicios/<id>
+
+```
 
 ### **.ENV LOCAL**
 ```

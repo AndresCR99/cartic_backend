@@ -13,43 +13,43 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.backend.carticback.models.VehiculoModel;
-import com.backend.carticback.services.VehiculoService;
+import com.backend.carticback.models.OrdenServicioModel;
+import com.backend.carticback.services.OrdenServicioService;
 
 @RestController
-@RequestMapping("/api/vehiculos")
-public class VehiculoController {
+@RequestMapping("/api/ordenes_servicios")
+public class OrdenServicioController {
+    
     @Autowired
-    VehiculoService vehiculoService;
+    OrdenServicioService ordenService;
 
     @GetMapping()
-    public ArrayList<VehiculoModel> getUsers(){
-        return vehiculoService.getUsers();
+    public ArrayList<OrdenServicioModel> getUsers(){
+        return ordenService.getOrdenServicios();
     }
 
     @PostMapping()
-    public VehiculoModel saveUser(@RequestBody VehiculoModel user){
-        return this.vehiculoService.saveUser(user);
+    public OrdenServicioModel saveUser(@RequestBody OrdenServicioModel orden){
+        return this.ordenService.saveOrdenServicio(orden);
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<VehiculoModel> getUserById(@PathVariable("id") Long id){
-        return this.vehiculoService.getById(id);
+    public Optional<OrdenServicioModel> getUserById(@PathVariable("id") Long id){
+        return this.ordenService.getById(id);
     }
 
     @PutMapping()
-    public VehiculoModel updateUser(@RequestBody VehiculoModel user){
-        return this.vehiculoService.saveUser(user);
+    public OrdenServicioModel updateUser(@RequestBody OrdenServicioModel orden){
+        return this.ordenService.saveOrdenServicio(orden);
     }
 
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") Long id){
-        boolean ok = this.vehiculoService.deleteUser(id);
+        boolean ok = this.ordenService.deleteOrdenServicio(id);
         if(ok){
-            return "User deleted with id: " + id;
+            return "Service deleted with id: " + id;
         }else{
-            return "could not delete user with id: " + id;
+            return "could not delete service with id: " + id;
         }
     }
-
 }
