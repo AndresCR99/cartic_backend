@@ -1,4 +1,11 @@
-# **PROYECTO CARTIC**
+# **Proyecto Cartic Backend**
+
+## **Integrantes**
+- Jose Luis Noguera
+- David Pachon
+- Paulo Rodriguez
+- Angie García
+- Carlos Castaño
 
 ### **CRUD ORDENES DE SERVICIO**
 
